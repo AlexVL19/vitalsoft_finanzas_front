@@ -6,15 +6,25 @@
       </v-btn>
     </v-row>
 
-    <v-row class="px-3 mx-auto mt-6 justify-center">
+    <v-row class="px-3 mx-auto mt-6 mb-6 justify-center">
       <h2>Empresa - Agregar comprobantes - 2022</h2>
     </v-row>
 
+    <v-row class="px-3 mx-auto-mt-3 justify-center">
+      <h3><strong>Total: </strong> $0</h3>
+    </v-row>
+
+    <v-row class="px-3 mx-auto mt-3 mb-3 justify-center">
+      <h3><strong>Diferencia CE con gastos:</strong> $0</h3>
+    </v-row>
+
+    <v-divider></v-divider>
+
     <v-row class="px-3 mx-auto mt-3 justify-center">
-      <v-col cols="4">
+      <v-col cols="12" sm="4" md="5" v-for="mes in meses" :key="mes.id">
         <v-card class="mx-auto mt-4 justify-center">
           <v-card-title class="justify-center grey darken-3 white--text">
-            <span class="mr-16">Mes</span>
+            <span class="mr-16">{{ mes.text }}</span>
             <v-spacer></v-spacer>
             <v-btn
               class="mt-4 mb-2"
@@ -31,12 +41,8 @@
           <v-divider></v-divider>
           <v-data-table :headers="headers" :items-per-page="5"> </v-data-table>
           <v-divider></v-divider>
-          <div class="mx-3">
-            <strong>Total: </strong> $0
-          </div>
-          <div class="ml-3">
-            <strong>Diferencia CE: </strong> $
-          </div>
+          <div class="mx-3"><strong>Total: </strong> $0</div>
+          <div class="ml-3"><strong>Diferencia CE: </strong> $</div>
         </v-card>
       </v-col>
     </v-row>
@@ -106,13 +112,27 @@
 </template>
 
 <script>
-import Vue from "vue";
+import Vue from 'vue'
 
 export default {
   data() {
     return {
       comprobanteDialog: false,
-      montoWatch: 0,
+      meses: [
+        { id: 1, text: "Enero" },
+        { id: 2, text: "Febrero" },
+        { id: 3, text: "Marzo" },
+        { id: 4, text: "Abril" },
+        { id: 5, text: "Mayo" },
+        { id: 6, text: "Junio" },
+        { id: 7, text: "Julio" },
+        { id: 8, text: "Agosto" },
+        { id: 9, text: "Septiembre" },
+        { id: 10, text: "Octubre" },
+        { id: 11, text: "Noviembre" },
+        { id: 12, text: "Diciembre" },
+      ],
+
       headers: [
         {
           text: "Comprobante",
@@ -159,6 +179,8 @@ export default {
         { text: "IND Y CIO" },
         { text: "NO + PR" },
       ],
+
+
     };
   },
 

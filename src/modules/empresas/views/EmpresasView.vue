@@ -80,7 +80,12 @@
                       class="justify-center d-flex"
                     >
                       <v-col cols="12" sm="6" md="6" class="justify-center">
-                        <v-btn color="blue-grey" dark>
+                        <v-btn color="blue-grey" dark v-if="formularioMovimientos.tipo == 'Ver por meses'" to="/movimientosMes">
+                          <v-icon left dark>mdi-magnify</v-icon>
+                          Consultar
+                        </v-btn>
+
+                        <v-btn color="blue-grey" dark v-else>
                           <v-icon left dark>mdi-magnify</v-icon>
                           Consultar
                         </v-btn>
@@ -105,7 +110,7 @@
                             </v-btn>
                           </v-col>
                         </template>
-                        <span>Listado de cuentas contables</span>
+                        <span class="mt-n5">Listado de cuentas contables</span>
                       </v-tooltip>
                     </v-col>
                   </div>
@@ -142,6 +147,7 @@
                           item-text="text"
                           label="Mes"
                           v-if="formularioEgreso.tipo == 'Ver por meses'"
+                          v-model="formularioEgreso.mes"
                         >
                         </v-select>
                       </v-col>
@@ -155,7 +161,12 @@
                       class="justify-center d-flex"
                     >
                       <v-col cols="12" sm="6" md="6" class="justify-center">
-                        <v-btn color="blue-grey" dark to="/comprobantes">
+                        <v-btn color="blue-grey" dark to="/comprobantesMes" v-if="formularioEgreso.tipo == 'Ver por meses'">
+                          <v-icon left dark>mdi-magnify</v-icon>
+                          Consultar
+                        </v-btn>
+
+                        <v-btn color="blue-grey" dark to="/comprobantesAnio" v-else>
                           <v-icon left dark>mdi-magnify</v-icon>
                           Consultar
                         </v-btn>
@@ -239,12 +250,12 @@
 
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
-        <v-dialog width="500px" v-model="registerAccDialog">
+        <v-dialog persistent width="500px" v-model="registerAccDialog">
           <v-card class="mx-auto justify-center">
             <v-card-title dark class="grey darken-3 justify-center white--text">
                 <span class="mr-16">Agregar cuenta</span>
                 <v-spacer></v-spacer>
-                <v-btn small class="red" depressed @click="registerAccDialog = false">
+                <v-btn small dark class="red" depressed @click="registerAccDialog = false">
                     <v-icon small>mdi-close</v-icon>
                 </v-btn>
             </v-card-title>
@@ -374,13 +385,13 @@ export default {
       formularioMovimientos: {
         tipo: "Ver por año",
         año: new Date().getFullYear(),
-        mes: "",
+        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1),
       },
 
       formularioEgreso: {
         tipo: "Ver por año",
         año: new Date().getFullYear(),
-        mes: "",
+        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1)
       },
 
       formularioAgregar: {
