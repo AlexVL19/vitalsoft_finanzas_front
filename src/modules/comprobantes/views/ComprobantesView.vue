@@ -45,6 +45,7 @@
                 small
                 class="red"
                 depressed
+                dark
                 @click="comprobanteDialog = false"
               >
                 <v-icon small>mdi-close</v-icon>
