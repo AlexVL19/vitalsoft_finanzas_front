@@ -5,6 +5,7 @@ import EmpresasView from '../modules/empresas/views/EmpresasView.vue'
 import ComprobantesView from '../modules/comprobantes/views/ComprobantesView.vue'
 import ComprobantesAnio from '../modules/comprobantes/views/ComprobantesAnio.vue'
 import movimientosMes from '../modules/movimientos/views/movimientosMes.vue'
+import movimientosAnio from '../modules/movimientos/views/movimientosAnio.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,12 @@ const routes = [
     path: '/movimientosMes',
     name: 'movimientosMes-vitalsoft',
     component: movimientosMes
+  },
+
+  {
+    path: '/movimientosAnio',
+    name: 'movimientosAnio-vitalsoft',
+    component: movimientosAnio
   }
 ]
 

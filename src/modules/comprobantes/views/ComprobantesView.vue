@@ -43,7 +43,7 @@
 
     <v-row class="px-3 justify-center">
       <v-col cols="12">
-        <v-dialog v-model="comprobanteDialog" width="500px" persistent>
+        <v-dialog v-model="comprobanteDialog" width="500px" persistent scrollable>
           <v-card class="mx-auto justify-center">
             <v-card-title class="justify-center grey darken-3 white--text">
               <span class="mr-16">Agregar comprobante</span>

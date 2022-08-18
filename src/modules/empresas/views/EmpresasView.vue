@@ -85,7 +85,7 @@
                           Consultar
                         </v-btn>
 
-                        <v-btn color="blue-grey" dark v-else>
+                        <v-btn color="blue-grey" dark v-else to="/movimientosAnio">
                           <v-icon left dark>mdi-magnify</v-icon>
                           Consultar
                         </v-btn>
