@@ -1,11 +1,13 @@
 <template>
   <div>
+    <!-- Botón para volver al listado de empresas -->
     <v-row class="px-3 mx-auto mt-4 mb-4 justify-center">
       <v-btn small dark fab color="blue-grey" to="/empresas">
         <v-icon dark>mdi-home</v-icon>
       </v-btn>
     </v-row>
 
+    <!-- Sección de título -->
     <v-row class="px-3 mx-auto mt-6 mb-3 justify-center">
       <h2>Empresa - Agregar movimientos - 2022</h2>
     </v-row>
@@ -32,7 +34,7 @@
       <h2><strong>Mes</strong></h2>
     </v-row>
 
-    <!-- Gastos -->
+    <!-- Tabla de gastos, en donde se muestran los registros en función del mes -->
     <v-row class="px-3 mx-auto mt-3 justify-center">
       <v-col cols="12" md="5" sm="5">
         <v-card class="mx-auto mt-4">
@@ -56,7 +58,7 @@
         </v-card>
       </v-col>
 
-      <!-- Ingresos -->
+      <!-- Tabla de ingresos, en donde se muestran los mismos en función del mes -->
       <v-col cols="12" md="5" sm="5">
         <v-card class="mx-auto mt-4">
           <v-card-title class="justify-center grey darken-3 white--text">
@@ -80,7 +82,7 @@
       </v-col>
     </v-row>
 
-    <!-- Formulario de gastos -->
+    <!-- Formulario en donde se puede añadir nuevos gastos -->
     <v-row class="px-3 justify-center">
       <v-col cols="12">
         <v-dialog
@@ -125,23 +127,40 @@
               <v-form ref="form" lazy-validation>
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Código de la cuenta" v-model="formularioGasto.codigo"> </v-select>
+                    <v-select
+                      label="Código de la cuenta"
+                      v-model="formularioGasto.codigo"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Nombre de la cuenta" v-model="formularioGasto.cuenta"> </v-select>
+                    <v-select
+                      label="Nombre de la cuenta"
+                      v-model="formularioGasto.cuenta"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field label="Concepto" v-model="formularioGasto.concepto"> </v-text-field>
+                    <v-text-field
+                      label="Concepto"
+                      v-model="formularioGasto.concepto"
+                    >
+                    </v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Tipo de gasto" v-model="formularioGasto.tipo_gasto"> </v-select>
+                    <v-select
+                      label="Tipo de gasto"
+                      v-model="formularioGasto.tipo_gasto"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="12" md="12">
-                    <v-text-field label="Valor" v-model="formularioGasto.valor"> </v-text-field>
+                    <v-text-field label="Valor" v-model="formularioGasto.valor">
+                    </v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
@@ -154,19 +173,31 @@
 
                 <v-row v-if="toggleArea == true">
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Área" v-model="formularioGasto.area"> </v-select>
+                    <v-select label="Área" v-model="formularioGasto.area">
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Dependencia" v-model="formularioGasto.dependencia"> </v-select>
+                    <v-select
+                      label="Dependencia"
+                      v-model="formularioGasto.dependencia"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Sub-dependencias" v-model="formularioGasto.subdependencia"> </v-select>
+                    <v-select
+                      label="Sub-dependencias"
+                      v-model="formularioGasto.subdependencia"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-autocomplete label="Usuarios" v-model="formularioGasto.usuarios"></v-autocomplete>
+                    <v-autocomplete
+                      label="Usuarios"
+                      v-model="formularioGasto.usuarios"
+                    ></v-autocomplete>
                   </v-col>
                 </v-row>
               </v-form>
@@ -183,6 +214,7 @@
       </v-col>
     </v-row>
 
+    <!-- Formulario en donde se puede añadir cuentas contables nuevas, dado el caso en que se necesite uno -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
         <v-dialog persistent width="500px" v-model="registerAccDialog">
@@ -238,6 +270,7 @@
           persistent
           scrollable
         >
+          <!-- Formulario que permite agregar ingresos a la base de datos, en forma de modal -->
           <v-card class="mx-auto justify-center">
             <v-card-title class="justify-center grey darken-3 white--text">
               <span class="mr-16">Agregar ingreso</span>
@@ -274,23 +307,43 @@
               <v-form ref="form" lazy-validation>
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Código de la cuenta" v-model="formularioIngreso.codigo"> </v-select>
+                    <v-select
+                      label="Código de la cuenta"
+                      v-model="formularioIngreso.codigo"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Nombre de la cuenta" v-model="formularioIngreso.cuenta"> </v-select>
+                    <v-select
+                      label="Nombre de la cuenta"
+                      v-model="formularioIngreso.cuenta"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field label="Concepto" v-model="formularioIngreso.concepto"> </v-text-field>
+                    <v-text-field
+                      label="Concepto"
+                      v-model="formularioIngreso.concepto"
+                    >
+                    </v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
-                    <v-select label="Tipo de gasto" v-model="formularioIngreso.tipo_gasto"> </v-select>
+                    <v-select
+                      label="Tipo de gasto"
+                      v-model="formularioIngreso.tipo_gasto"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" sm="12" md="12">
-                    <v-text-field label="Valor" v-model="formularioIngreso.valor"> </v-text-field>
+                    <v-text-field
+                      label="Valor"
+                      v-model="formularioIngreso.valor"
+                    >
+                    </v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" md="6">
@@ -303,19 +356,31 @@
 
                 <v-row v-if="toggleArea == true">
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Área" v-model="formularioIngreso.area"> </v-select>
+                    <v-select label="Área" v-model="formularioIngreso.area">
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Dependencia" v-model="formularioIngreso.dependencia"> </v-select>
+                    <v-select
+                      label="Dependencia"
+                      v-model="formularioIngreso.dependencia"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-select label="Sub-dependencias" v-model="formularioIngreso.subdependencia"> </v-select>
+                    <v-select
+                      label="Sub-dependencias"
+                      v-model="formularioIngreso.subdependencia"
+                    >
+                    </v-select>
                   </v-col>
 
                   <v-col cols="12" md="6" sm="6">
-                    <v-autocomplete label="Usuarios" v-model="formularioIngreso.usuarios"></v-autocomplete>
+                    <v-autocomplete
+                      label="Usuarios"
+                      v-model="formularioIngreso.usuarios"
+                    ></v-autocomplete>
                   </v-col>
                 </v-row>
               </v-form>
@@ -335,7 +400,7 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 
 export default {
   data() {
@@ -343,7 +408,11 @@ export default {
       gastosDialog: false,
       ingresosDialog: false,
       toggleArea: false,
+
+      //Booleano que toma el rol de activador para un modal para añadir cuentas contables
       registerAccDialog: false,
+
+      //Encabezados para los data tables
       headers: [
         {
           text: "Código",
@@ -381,6 +450,7 @@ export default {
         },
       ],
 
+      //Objeto que almacena información de todos los campos del formulario para añadir gastos
       formularioGasto: {
         codigo: "",
         cuenta: "",
@@ -390,9 +460,10 @@ export default {
         area: "",
         dependencia: "",
         subdependencia: "",
-        usuarios: ""
+        usuarios: "",
       },
 
+      //Objeto que almacena información de todos los campos del formulario para añadir ingresos
       formularioIngreso: {
         codigo: "",
         cuenta: "",
@@ -402,10 +473,14 @@ export default {
         area: "",
         dependencia: "",
         subdependencia: "",
-        usuarios: ""
-      }
+        usuarios: "",
+      },
     };
   },
+
+  //Watchers para los valores que pertenecen a ambos formularios para añadir gastos o ingresos.
+  //Lo que hace es añadir una coma cada vez que el valor que se introduzca pase de las 4 cifras, y añada
+  //Otra coma cada 3 cifras, en cada modificación
 
   watch: {
     "formularioGasto.valor": function (newValue) {
@@ -421,6 +496,6 @@ export default {
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       Vue.nextTick(() => (this.formularioIngreso.valor = resultado));
     },
-  }
+  },
 };
 </script>

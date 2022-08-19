@@ -1,11 +1,13 @@
 <template>
   <div>
+    <!-- Botón para volver a la vista de empresas -->
     <v-row class="px-3 mx-auto mt-4 mb-4 justify-center">
       <v-btn small dark fab color="blue-grey" to="/empresas">
         <v-icon dark>mdi-home</v-icon>
       </v-btn>
     </v-row>
 
+    <!-- Sección de títulos -->
     <v-row class="px-3 mx-auto mt-6 mb-3 justify-center">
       <h2>Empresa - Agregar movimientos - 2022</h2>
     </v-row>
@@ -28,6 +30,7 @@
 
     <v-divider></v-divider>
 
+    <!-- Pestañas para mostrar los gráficos estadísticos -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="12">
         <v-tabs
@@ -45,13 +48,14 @@
       </v-col>
     </v-row>
 
+    <!-- Sección para gráficos estadísticos (en proceso)-->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="8">
         <v-tabs-items v-model="tab">
           <v-tab-item>
-            <v-card class="my-4 mx-4" elevation="4">
+            <v-card class="my-4 mx-4" elevation="4" ref="canvasMovimientos">
               <v-card-text>
-                <canvas id="canvas-movimientos"> </canvas>
+                <canvas> </canvas>
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -59,6 +63,7 @@
       </v-col>
     </v-row>
 
+    <!-- Sección de tablas de datos, en donde se itera por cada mes -->
     <div v-for="mes in meses" :key="mes">
       <v-row class="px-3 mx-auto mt-3 mb-3 justify-center">
         <h2>
@@ -66,7 +71,8 @@
         </h2>
       </v-row>
 
-      <!-- Gastos -->
+      <!-- Tabla de gastos, en donde se muestra información de gastos por mes, con opción de añadir,
+           eliminar o editar dichos gastos -->
       <v-row class="px-3 mx-auto mt-3 justify-center">
         <v-col cols="12" md="5" sm="5">
           <v-card class="mx-auto mt-4">
@@ -95,7 +101,8 @@
           </v-card>
         </v-col>
 
-        <!-- Ingresos -->
+        <!-- Tabla de ingresos, en donde se muestra cada ingreso por mes y varias opciones para
+             agregar, eliminar o editar -->
         <v-col cols="12" md="5" sm="5">
           <v-card class="mx-auto mt-4">
             <v-card-title class="justify-center grey darken-3 white--text">
@@ -126,7 +133,7 @@
       <v-divider class="mt-5"></v-divider>
     </div>
 
-    <!-- Formulario de gastos -->
+    <!-- Formulario para añadir gastos a la tabla previamente mencionada (Queda añadir información) -->
     <v-row class="px-3 justify-center">
       <v-col cols="12">
         <v-dialog
@@ -258,6 +265,7 @@
       </v-col>
     </v-row>
 
+    <!-- Formulario para agregar cuentas contables en caso de que se requiera una nueva -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
         <v-dialog persistent width="500px" v-model="registerAccDialog">
@@ -305,6 +313,7 @@
       </v-col>
     </v-row>
 
+    <!-- Formulario para añadir ingresos a la tabla en donde se muestran los mismos -->
     <v-row class="px-3 justify-center">
       <v-col cols="12">
         <v-dialog
@@ -443,18 +452,21 @@
 
 <script>
 import Vue from "vue";
-import Chart from "chart.js";
-import graficaMovimientos from "../misc/graficaMovimientos.js"
+//import Chart from "chart.js";
+import graficaMovimientos from "../misc/graficaMovimientos.js";
 
 export default {
   data() {
     return {
       graficaMovimientos: graficaMovimientos,
+      ctx: null,
       ingresosDialog: false,
       gastosDialog: false,
       toggleArea: false,
       registerAccDialog: false,
       tab: null,
+
+      //Array de meses, iterar por cada mes para que el código quede más limpio
       meses: [
         "Enero",
         "Febrero",
@@ -470,6 +482,7 @@ export default {
         "Diciembre",
       ],
 
+      //Objeto para almacenar los campos del formulario de añadir gastos
       formularioGasto: {
         codigo: "",
         cuenta: "",
@@ -482,6 +495,7 @@ export default {
         usuarios: "",
       },
 
+      //Objeto para almacenar campos del formulario de añadir ingresos
       formularioIngreso: {
         codigo: "",
         cuenta: "",
@@ -494,6 +508,7 @@ export default {
         usuarios: "",
       },
 
+      //Encabezados para los data tables
       headers: [
         {
           text: "Código",
@@ -533,6 +548,9 @@ export default {
     };
   },
 
+  //Watchers para los valores que pertenecen a ambos formularios para añadir gastos o ingresos.
+  //Lo que hace es añadir una coma cada vez que el valor que se introduzca pase de las 4 cifras, y añada
+  //Otra coma cada 3 cifras, en cada modificación
   watch: {
     "formularioGasto.valor": function (newValue) {
       const resultado = newValue
@@ -549,14 +567,16 @@ export default {
     },
   },
 
-  created () {
-    this.createMovimientosChart()
+  //  Parte en progreso
+  mounted() {
+    console.log(this.$refs.canvasMovimientos);
   },
 
   methods: {
     createMovimientosChart() {
-      const ctx = document.getElementById('canvas-movimientos');
-      new Chart(ctx, this.graficaMovimientos);
+      //this.ctx = this.$refs.canvasMovimientos;
+      //new Chart(this.ctx, this.graficaMovimientos);
+      console.log(this.ctx);
     },
   },
 };

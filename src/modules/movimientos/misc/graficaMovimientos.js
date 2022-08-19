@@ -1,5 +1,8 @@
 export const graficaMovimientos = {
+        //Tipo de gráfica que deseo que se muestre en la tabla
         type: "line",
+
+        //Datos necesarios para la gráfica, incluida la leyenda y el set de datos necesarios para mostrar
         data: {
           labels: [
             "Enero",
@@ -33,6 +36,8 @@ export const graficaMovimientos = {
             }
           ]
         },
+
+        //Objeto de opciones en donde hay ajustes misceláneos como el estilo de las líneas o el gráfico en sí
         options: {
           responsive: true,
           lineTension: 1,
