@@ -1,4 +1,6 @@
 <template>
+
+  <!-- Tabla en donde se muestra el listado de empresas -->
   <div>
     <v-row class="px-3 mx-auto mt-4 justify-center">
       <v-col cols="6">
@@ -20,6 +22,8 @@
       </v-col>
     </v-row>
 
+<!-- Modal en donde se muestra un formulario de filtrado tanto para los comprobantes como los movimientos. 
+     Se filtran tanto por mes como por año. -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
         <v-dialog v-model="financesDialog" width="400px">
@@ -203,6 +207,7 @@
       </v-col>
     </v-row>
 
+    <!-- Modal en donde se muestra el listado de cuentas contables, con opción para añadir uno. -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
         <v-dialog width="600px" v-model="accountsDialog">
@@ -248,6 +253,7 @@
       </v-col>
     </v-row>
 
+<!-- Modal que muestra un formulario para agregar cuentas contables nuevas. -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="6">
         <v-dialog persistent width="500px" v-model="registerAccDialog">
@@ -306,9 +312,17 @@ export default {
       financesDialog: false,
       accountsDialog: false,
       registerAccDialog: false,
-      empresaDetails: "",
+
+      //Array que almacena detalles de la empresa, como su ID y el nombre. 
+      empresaDetails: [],
+
+      //Buscador para el listado de cuentas contables
       buscarCuentas: "",
+
+      //Variable que funciona a modo de v-model para desplazarse entre pestañas 
       tab: null,
+
+      //Listado de empresas (Placeholder)
       empresas: [
         { numero: 1, empresa: "Red Medica Vital" },
         { numero: 2, empresa: "Vital Mascotas" },
@@ -321,6 +335,7 @@ export default {
         { numero: 9, empresa: "Finca (Barbas)" },
       ],
 
+      //Listado de cuentas contables (Placeholder)
       cuentas: [
         { codigo: "1105", cuenta: "Caja" },
         { codigo: "110505", cuenta: "Caja general" },
@@ -329,6 +344,7 @@ export default {
         { codigo: "111005", cuenta: "Moneda Nacional" },
       ],
 
+      //Encabezados para el data table
       headers: [
         {
           text: "No.",
@@ -344,6 +360,7 @@ export default {
         },
       ],
 
+      //Encabezados para el data table de cuentas contables
       headersCuentas: [
         {
           text: "Código",
@@ -365,8 +382,10 @@ export default {
         },
       ],
 
+      //Objeto que sirve a modo de selección al filtrar por meses o por año
       selectSortingMode: [{ text: "Ver por año" }, { text: "Ver por meses" }],
 
+      //Array de meses pendiente a ser mejorado 
       meses: [
         { text: "Enero" },
         { text: "Febrero" },
@@ -382,18 +401,21 @@ export default {
         { text: "Diciembre" },
       ],
 
+      //Objeto que almacena los cambios hechos por el usuario al filtrar movimientos
       formularioMovimientos: {
         tipo: "Ver por año",
         año: new Date().getFullYear(),
-        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1),
+        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1), //Pendiente por mejorar
       },
 
+      ////Objeto que almacena los cambios hechos por el usuario al filtrar comprobantes de egresos
       formularioEgreso: {
         tipo: "Ver por año",
         año: new Date().getFullYear(),
-        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1)
+        mes: (new Date().toLocaleString('es', { month: 'long' })).charAt(0).toUpperCase() + (new Date().toLocaleString('es', { month: 'long' })).slice(1) //Pendiente por mejorar
       },
 
+      //Objeto que almacena cambios en el formulario
       formularioAgregar: {
         codigo: "",
         nombre: "",
@@ -402,6 +424,8 @@ export default {
   },
 
   methods: {
+
+    //Método que permite obtener los detalles de la empresa y abrir el modal de filtrado
     handleClick(val) {
         this.empresaDetails = val
         this.financesDialog = true

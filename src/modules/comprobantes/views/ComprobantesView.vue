@@ -1,15 +1,19 @@
 <template>
   <div>
+
+    <!-- Botón para regresar a la vista de empresas -->
     <v-row class="px-3 mx-auto mt-4 mb-4 justify-center">
       <v-btn small dark fab color="blue-grey" to="/empresas">
         <v-icon dark>mdi-home</v-icon>
       </v-btn>
     </v-row>
 
+    <!-- Sección de título y estadísticas actuales por mes -->
     <v-row class="px-3 mx-auto mt-6 justify-center">
       <h2>Empresa - Agregar comprobantes - 2022</h2>
     </v-row>
 
+    <!-- Tabla en donde se muestra los comprobantes por mes -->
     <v-row class="px-3 mx-auto mt-3 justify-center">
       <v-col cols="4">
         <v-card class="mx-auto mt-4 justify-center">
@@ -41,6 +45,7 @@
       </v-col>
     </v-row>
 
+    <!-- Modal que contiene un formulario para agregar comprobantes -->
     <v-row class="px-3 justify-center">
       <v-col cols="12">
         <v-dialog v-model="comprobanteDialog" width="500px" persistent scrollable>
@@ -112,7 +117,8 @@ export default {
   data() {
     return {
       comprobanteDialog: false,
-      montoWatch: 0,
+
+      //Encabezados para el data table
       headers: [
         {
           text: "Comprobante",
@@ -143,12 +149,14 @@ export default {
         },
       ],
 
+      //Objeto que almacenará los datos introducidos en el formulario
       formularioComprobante: {
         tipo: "",
         num_comprobante: "",
         monto_vista: "",
       },
 
+      //Objeto que contiene varias opciones a ser seleccionadas en el formulario de agregar comprobantes
       selectTipo: [
         { text: "CE" },
         { text: "NO" },
@@ -162,6 +170,8 @@ export default {
     };
   },
 
+  // Watchers que reemplazan el valor viejo por el nuevo, añadiéndole una coma una vez el número supera una
+  // cantidad de cifras.
   watch: {
     "formularioComprobante.monto_vista": function (newValue) {
       const resultado = newValue

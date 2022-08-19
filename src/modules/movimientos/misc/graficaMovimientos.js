@@ -1,8 +1,5 @@
 export const graficaMovimientos = {
-        //Tipo de gráfica que deseo que se muestre en la tabla
-        type: "line",
-
-        //Datos necesarios para la gráfica, incluida la leyenda y el set de datos necesarios para mostrar
+        //Datos necesarios para la gráfica, incluida la leyenda y el set de datos necesarios para mostrarlos
         data: {
           labels: [
             "Enero",

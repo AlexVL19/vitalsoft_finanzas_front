@@ -1,11 +1,14 @@
 <template>
   <div>
+
+    <!-- Botón que dirige al listado de empresas -->
     <v-row class="px-3 mx-auto mt-4 mb-4 justify-center">
       <v-btn small dark fab color="blue-grey" to="/empresas">
         <v-icon dark>mdi-home</v-icon>
       </v-btn>
     </v-row>
 
+    <!-- Sección de título y estadísticas actuales -->
     <v-row class="px-3 mx-auto mt-6 mb-6 justify-center">
       <h2>Empresa - Agregar comprobantes - 2022</h2>
     </v-row>
@@ -20,6 +23,7 @@
 
     <v-divider></v-divider>
 
+    <!-- Data tables en donde se mostrarán los comprobantes por cada mes del año. Se itera desde un array de meses -->
     <v-row class="px-3 mx-auto mt-3 justify-center">
       <v-col cols="12" sm="4" md="5" v-for="mes in meses" :key="mes.id">
         <v-card class="mx-auto mt-4 justify-center">
@@ -47,6 +51,7 @@
       </v-col>
     </v-row>
 
+    <!-- Formulario para poder agregar un comprobante al listado -->
     <v-row class="px-3 justify-center">
       <v-col cols="12">
         <v-dialog v-model="comprobanteDialog" width="500px" persistent>
@@ -118,6 +123,8 @@ export default {
   data() {
     return {
       comprobanteDialog: false,
+
+      //Array de meses que puede ser mejorado (Pendiente)
       meses: [
         { id: 1, text: "Enero" },
         { id: 2, text: "Febrero" },
@@ -133,6 +140,7 @@ export default {
         { id: 12, text: "Diciembre" },
       ],
 
+      //Encabezados para los data tables
       headers: [
         {
           text: "Comprobante",
@@ -163,6 +171,7 @@ export default {
         },
       ],
 
+      //Objeto que almacena los datos introducidos en el formulario de comprobantes
       formularioComprobante: {
         tipo: "",
         num_comprobante: "",
@@ -184,6 +193,7 @@ export default {
     };
   },
 
+  //Watchers que hacen la función de poner una coma cada vez que el número sea de x cifras.
   watch: {
     "formularioComprobante.monto_vista": function (newValue) {
       const resultado = newValue

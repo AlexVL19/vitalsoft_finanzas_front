@@ -53,9 +53,9 @@
       <v-col cols="8">
         <v-tabs-items v-model="tab">
           <v-tab-item>
-            <v-card class="my-4 mx-4" elevation="4" ref="canvasMovimientos">
+            <v-card class="my-4 mx-4" elevation="4">
               <v-card-text>
-                <canvas> </canvas>
+                <linechart :chart-data="graficaMovimientos"></linechart>
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -452,21 +452,49 @@
 
 <script>
 import Vue from "vue";
-//import Chart from "chart.js";
+
+//Se importa el formato de diagrama de líneas y se le otorga un alias para no generar conflictos con el markup
+//de HTML
+import { Line as linechart } from "vue-chartjs";
+
+//Se importa la interfaz necesaria para el diagrama de líneas
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+} from "chart.js";
+
+//Se importa el objeto para las opciones, datasets y demás 
 import graficaMovimientos from "../misc/graficaMovimientos.js";
 
+//Se registra cada interface o plugin importado 
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement
+);
+
 export default {
+  components: { linechart },
   data() {
     return {
-      graficaMovimientos: graficaMovimientos,
-      ctx: null,
+      graficaMovimientos: graficaMovimientos.data,
       ingresosDialog: false,
       gastosDialog: false,
       toggleArea: false,
       registerAccDialog: false,
       tab: null,
 
-      //Array de meses, iterar por cada mes para que el código quede más limpio
+      //Array de meses, iterar por cada mes para que el código quede más limpio (Pendiente)
       meses: [
         "Enero",
         "Febrero",
@@ -564,19 +592,6 @@ export default {
         .replace(/\D/g, "")
         .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       Vue.nextTick(() => (this.formularioIngreso.valor = resultado));
-    },
-  },
-
-  //  Parte en progreso
-  mounted() {
-    console.log(this.$refs.canvasMovimientos);
-  },
-
-  methods: {
-    createMovimientosChart() {
-      //this.ctx = this.$refs.canvasMovimientos;
-      //new Chart(this.ctx, this.graficaMovimientos);
-      console.log(this.ctx);
     },
   },
 };
