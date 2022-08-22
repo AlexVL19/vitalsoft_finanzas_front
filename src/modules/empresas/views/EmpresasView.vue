@@ -14,7 +14,7 @@
             :items="empresas"
             :disable-pagination="true"
             :hide-default-footer="true"
-            class="text-center"
+            class="text-center row-pointer"
             @click:row="handleClick"
           >
           </v-data-table>
@@ -348,14 +348,14 @@ export default {
       headers: [
         {
           text: "No.",
-          sortable: "false",
-          filterable: "false",
+          sortable: false,
+          filterable: false,
           value: "numero",
         },
         {
           text: "Movimientos empresas",
-          sortable: "false",
-          filterable: "false",
+          sortable: false,
+          filterable: false,
           value: "empresa",
         },
       ],
@@ -364,20 +364,20 @@ export default {
       headersCuentas: [
         {
           text: "Código",
-          sortable: "false",
-          filterable: "false",
+          sortable: false,
+          filterable: false,
           value: "codigo",
         },
 
         {
           text: "Cuenta",
-          sortable: "false",
+          sortable: false,
           value: "cuenta",
         },
 
         {
           text: "Acciones",
-          sortable: "false",
+          sortable: false,
           value: "ssssssss",
         },
       ],
@@ -385,21 +385,8 @@ export default {
       //Objeto que sirve a modo de selección al filtrar por meses o por año
       selectSortingMode: [{ text: "Ver por año" }, { text: "Ver por meses" }],
 
-      //Array de meses pendiente a ser mejorado 
-      meses: [
-        { text: "Enero" },
-        { text: "Febrero" },
-        { text: "Marzo" },
-        { text: "Abril" },
-        { text: "Mayo" },
-        { text: "Junio" },
-        { text: "Julio" },
-        { text: "Agosto" },
-        { text: "Septiembre" },
-        { text: "Octubre" },
-        { text: "Noviembre" },
-        { text: "Diciembre" },
-      ],
+      //Array que almacena los meses del año gracias a un for que se encuentra en el mounted() 
+      meses: [],
 
       //Objeto que almacena los cambios hechos por el usuario al filtrar movimientos
       formularioMovimientos: {
@@ -423,6 +410,25 @@ export default {
     };
   },
 
+  mounted() {
+    //Se itera por cada mes del año mediante un for
+    for (let index = 0; index < 12; index++) {
+
+      //Se instancia un objeto de fecha que comience desde el index (0), es decir, enero
+      var date = new Date(2022, index, 1)
+
+      //Se convierte el número del mes a un string localizado al español
+      let month = date.toLocaleString('es', { month: 'long' })
+
+      // A ese string se le extrae el primer caracter y lo convierte a uppercase, y devuelve el elemento 
+      // seleccionado
+      month = (month.charAt(0).toUpperCase()) + (month.slice(1))
+
+      //Finalmente se pushea el elemento al array, para poder utilizarlo posteriormente
+      this.meses.push(month)
+    }
+  },
+
   methods: {
 
     //Método que permite obtener los detalles de la empresa y abrir el modal de filtrado
@@ -433,3 +439,10 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+
+.row-pointer :deep(tbody tr :hover) {
+  cursor: pointer;
+}
+</style>

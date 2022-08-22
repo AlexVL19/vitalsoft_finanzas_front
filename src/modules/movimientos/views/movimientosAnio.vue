@@ -12,6 +12,7 @@
       <h2>Empresa - Agregar movimientos - 2022</h2>
     </v-row>
 
+    <!-- El total de los ingresos, gastos y demás se podrá obtener mediante API-->
     <v-row class="px-3 mx-auto mt-3 justify-center">
       <h3><strong>Total ingresos: </strong> $0</h3>
     </v-row>
@@ -48,14 +49,43 @@
       </v-col>
     </v-row>
 
-    <!-- Sección para gráficos estadísticos (en proceso)-->
+    <!-- Sección para gráficos estadísticos -->
     <v-row class="px-3 mx-auto justify-center">
       <v-col cols="8">
         <v-tabs-items v-model="tab">
+
+        <!-- Gráfica que muestra los movimientos realizados por mes, divididos en gastos e ingresos-->
           <v-tab-item>
             <v-card class="my-4 mx-4" elevation="4">
               <v-card-text>
                 <linechart :chart-data="graficaMovimientos"></linechart>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <!-- Gráfica que muestra los gastos realizados por mes, divididos en rutinarios y fortuitos -->
+          <v-tab-item>
+            <v-card class="my-4 mx-4" elevation="4">
+              <v-card-text>
+                <linechart :chart-data="graficaGastos"></linechart>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <!-- Gráfica que muestra los ingresos realizados por mes, divididos en rutinarios y fortuitos -->
+          <v-tab-item>
+            <v-card class="my-4 mx-4" elevation="4">
+              <v-card-text>
+                <linechart :chart-data="graficaIngresos"></linechart>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <!-- Gráfica que muestra los gastos realizados por mes, divididos por cada área de la empresa -->
+          <v-tab-item>
+            <v-card class="my-4 mx-4" elevation="4">
+              <v-card-text>
+                <linechart :chart-data="graficaGastosArea"></linechart>
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -213,7 +243,9 @@
                     <v-text-field label="Valor" v-model="formularioGasto.valor">
                     </v-text-field>
                   </v-col>
-
+                  
+                  <!-- En caso de que el mismo gasto requiera información de un área, se proporciona este
+                      switch, con campos adicionales -->
                   <v-col cols="12" sm="6" md="6">
                     <v-switch
                       v-model="toggleArea"
@@ -397,6 +429,8 @@
                     </v-text-field>
                   </v-col>
 
+                  <!-- En caso de que el mismo ingreso requiera información de un área, se proporciona este
+                      switch, con campos adicionales -->
                   <v-col cols="12" sm="6" md="6">
                     <v-switch
                       v-model="toggleArea"
@@ -469,8 +503,11 @@ import {
   PointElement,
 } from "chart.js";
 
-//Se importa el objeto para las opciones, datasets y demás 
+//Se importa los objetos para las opciones, datasets y demás 
 import graficaMovimientos from "../misc/graficaMovimientos.js";
+import graficaGastos from "../misc/graficaGastos.js";
+import graficaIngresos from "../misc/graficaIngresos.js";
+import graficaGastosArea from "../misc/graficaGastosArea.js"
 
 //Se registra cada interface o plugin importado 
 ChartJS.register(
@@ -487,7 +524,14 @@ export default {
   components: { linechart },
   data() {
     return {
+
+      // Variables que se asignan a las importaciones ya descritas arriba, y de las cuales
+      // se podrán utilizar al instanciar la gráfica
       graficaMovimientos: graficaMovimientos.data,
+      graficaGastos: graficaGastos.data,
+      graficaIngresos: graficaIngresos.data,
+      graficaGastosArea: graficaGastosArea.data,
+
       ingresosDialog: false,
       gastosDialog: false,
       toggleArea: false,
@@ -495,20 +539,7 @@ export default {
       tab: null,
 
       //Array de meses, iterar por cada mes para que el código quede más limpio (Pendiente)
-      meses: [
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre",
-      ],
+      meses: [],
 
       //Objeto para almacenar los campos del formulario de añadir gastos
       formularioGasto: {
@@ -574,6 +605,24 @@ export default {
         },
       ],
     };
+  },
+
+  mounted() {
+    //Se itera por cada mes del año gracias a un for
+    for (let index = 0; index < 12; index++) {
+
+      //Se instancia un objeto de fecha que empieza desde el índice (0)
+      var date = new Date(2022, index, 1)
+
+      //Se convierte el número del mes a un string localizado al español 
+      let month = date.toLocaleString('es', { month: 'long' })
+
+      //Luego se captura el primer carácter, se convierte en una mayúscula y se extrae el primer caracter
+      month = (month.charAt(0).toUpperCase()) + (month.slice(1))
+
+      //Los resultados se pushean en este array para finalmente usarlo
+      this.meses.push(month)
+    }
   },
 
   //Watchers para los valores que pertenecen a ambos formularios para añadir gastos o ingresos.

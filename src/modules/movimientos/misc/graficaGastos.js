@@ -18,15 +18,15 @@ export const graficaMovimientos = {
 
           datasets: [
             {
-              label: "Gastos",
-              data: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8],
+              label: "Rutinarios",
+              data: [3, 5, 6, 1, 9, 3, 5, 3, 2, 7, 1, 3],
               backgroundColor: "rgba(252, 70, 70, .5)",
               borderColor: "#fc4646",
               borderWidth: 3
             },
             {
-              label: "Ingresos",
-              data: [7, 4, 7, 2, 9, 0, 1, 2, 4, 7, 7, 10],
+              label: "Fortuitos",
+              data: [2, 1, 4, 6, 7, 6, 4, 5, 6, 2, 4, 5],
               backgroundColor: "rgba(122, 171, 255, .5)",
               borderColor: "#7aabff",
               borderWidth: 3

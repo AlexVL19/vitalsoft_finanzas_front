@@ -163,6 +163,8 @@
                     </v-text-field>
                   </v-col>
 
+                  <!-- En caso de que el mismo gasto requiera información de un área, se proporciona este
+                      switch, con campos adicionales -->
                   <v-col cols="12" sm="6" md="6">
                     <v-switch
                       v-model="toggleArea"
@@ -346,6 +348,8 @@
                     </v-text-field>
                   </v-col>
 
+                  <!-- En caso de que el mismo ingreso requiera información de un área, se proporciona este
+                      switch, con campos adicionales -->
                   <v-col cols="12" sm="6" md="6">
                     <v-switch
                       v-model="toggleArea"
